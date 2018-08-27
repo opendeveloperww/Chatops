@@ -380,11 +380,11 @@ app.post("/ServiceNow",function(request,response)
       ];    
         console.log(request.body.queryResult.parameters.ticketNo)
       
-        const filters=[
+        const filtersstatus=[
           'number=' + request.body.queryResult.parameters.ticketNo
         ];
       
-        ServiceNow.getTableData(fields,filters,'incident',res=>{
+        ServiceNow.getTableData(fields,filtersstatus,'incident',res=>{
           console.log(res[0].number + ": " + res[0].short_description);
           console.log(res);
           response.send(JSON.stringify({
