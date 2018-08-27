@@ -370,6 +370,29 @@ app.post("/ServiceNow",function(request,response)
           ));          
         });
       break;
+      case "ticketstatus" :
+        const fields=[
+          'number',
+          'short_description',
+          'assignment_group',
+          'priority',
+          'incident_state'
+      ];    
+        console.log(request.body.queryResult.parameters.ticketNo)
+      
+        const filters=[
+          'number=' + request.body.queryResult.parameters.ticketNo
+        ];
+      
+        ServiceNow.getTableData(fields,filters,'incident',res=>{
+          console.log(res[0].number + ": " + res[0].short_description);
+          console.log(res);
+          response.send(JSON.stringify({
+              "fulfillmentText": "The state of Ticket Number: " + request.body.queryResult.parameters.ticketNo + " is " + res[0].incident_state
+            })
+          );        
+        });
+      break;
       case "resetpassword" :   
         //var email= req.body.email;			
         console.log(request.body.queryResult.parameters.email);
