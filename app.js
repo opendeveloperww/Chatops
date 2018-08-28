@@ -371,7 +371,7 @@ app.post("/ServiceNow",function(request,response)
         });
       break;
       case "ticketstatus" :
-        const fields=[
+        const statusfields=[
           'number',
           'short_description',
           'assignment_group',
@@ -384,7 +384,7 @@ app.post("/ServiceNow",function(request,response)
           'number=' + request.body.queryResult.parameters.ticketNo
         ];
       
-        ServiceNow.getTableData(fields,filtersstatus,'incident',res=>{
+        ServiceNow.getTableData(statusfields,filtersstatus,'incident',res=>{
           console.log(res[0].number + ": " + res[0].short_description);
           console.log(res);
           response.send(JSON.stringify({
