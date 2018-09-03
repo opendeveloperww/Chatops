@@ -66,12 +66,7 @@ app.post('/login_form' ,function(req,res){
           
           //send notification to slack
           //slack.alert('User account ' + email + 'has been locked. Please issue reset password command to unlock the account');
-          slack.send({
-            channel: '#general',
-            text: 'User account has been locked',
-            username: email
-          });
-          console.log("Slack message sent");
+          
 					});
 					
 					res.json({success : "logged in Successfully", IsError : 'false'}); 
@@ -93,7 +88,14 @@ app.post('/login_form' ,function(req,res){
 					if (err) throw err;
 					console.log(" failcount updated");
           db.close();
-          
+
+          //send notification to slack
+          slack.send({
+            channel: '#general',
+            text: 'User account has been locked',
+            username: email
+          });
+          console.log("Slack message sent");
 					});
 				}
 				});
