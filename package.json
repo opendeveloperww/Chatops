@@ -6,7 +6,8 @@
   "dependencies": {
     "express": "^4.16.3",
     "mongodb": "^2.2.33",
-    "servicenow-rest-api": "^1.0.4"
+    "servicenow-rest-api": "^1.0.4",
+    "slack-notify": "^0.1.6"
   },
   "devDependencies": {},
   "scripts": {
