@@ -65,7 +65,12 @@ app.post('/login_form' ,function(req,res){
           db.close();
           
           //send notification to slack
-          slack.alert('User account ' + email + 'has been locked. Please issue reset password command to unlock the account');
+          //slack.alert('User account ' + email + 'has been locked. Please issue reset password command to unlock the account');
+          slack.send({
+            channel: '#general',
+            text: 'User account has been locked',
+            username: email
+          });
           console.log("Slack message sent");
 					});
 					
