@@ -8,6 +8,9 @@ var mongo = require('mongodb');
 var app = express();
 var new_db = "mongodb://admin:admin123@ds119072.mlab.com:19072/nodetest";
 
+var MY_SLACK_WEBHOOK_URL = 'https://hooks.slack.com/services/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';
+var slack = require('slack-notify')(MY_SLACK_WEBHOOK_URL);
+
 var port = process.env.PORT || 1338;
 
 // create application/x-www-form-urlencoded parser
@@ -59,7 +62,10 @@ app.post('/login_form' ,function(req,res){
 					db.collection("user").update(myquery, newvalues, function(err, res) {
 					if (err) throw err;
 					console.log(" failcount updated");
-					db.close();
+          db.close();
+          
+          //send notification to slack
+          slack.alert('User account ' + email + 'has been locked. Please issue reset password command to unlock the account');
 					});
 					
 					res.json({success : "logged in Successfully", IsError : 'false'}); 
@@ -80,7 +86,8 @@ app.post('/login_form' ,function(req,res){
 					db.collection("user").update(myquery, newvalues, function(err, res) {
 					if (err) throw err;
 					console.log(" failcount updated");
-					db.close();
+          db.close();
+          
 					});
 				}
 				});
